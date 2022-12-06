@@ -5,9 +5,16 @@ const app = express()
 const router = require('./routes/auth.route.js')
 const cors = require('cors')
 
-app.use(cors())
+app.use(
+  cors({
+    origin: '*',
+    credentials: true,
+  })
+)
+
 app.use(express.json())
 app.use('/api/auth', router)
+
 app.get('/', (req, res) => {
   res.json({ message: 'lol' })
 })
@@ -15,7 +22,7 @@ app.get('/', (req, res) => {
 async function start() {
   try {
     await mongoose.connect(
-      'mongodb+srv://admin:admin@cluster0.909wfe1.mongodb.net/?retryWrites=true&w=majority'
+      'mongodb+srv://admin:admin@cluster0.909wfe1.mongodb.net/mern?retryWrites=true&w=majority'
     )
     app.listen(4000, () =>
       console.log(
